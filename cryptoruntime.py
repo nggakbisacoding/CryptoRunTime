@@ -10,6 +10,8 @@ import webbrowser
 import yfinance as yf
 import time
 import asyncio
+import dashboard
+import analysis
 
 SETTINGS_FILE = path.join(path.dirname(__file__), r'settings_file.cfg')
 DEFAULT_SETTINGS = {'theme': sg.theme()}
@@ -237,9 +239,11 @@ async def main():
                 save_settings(SETTINGS_FILE, settings, values)
 
         elif event == 'Dashboard':
+            dashboard.main()
             webbrowser.open_new_tab("http://localhost:8501/")
             
         elif event == 'Analysis':
+            analysis.main()
             webbrowser.open_new_tab("http://localhost:8501/")
         
         elif event == 'submit':

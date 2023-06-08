@@ -129,10 +129,12 @@ class Crypto_analysis:
                 futures = [executor.submit(Crypto_analysis.get_analysis_mma(ticker),) for ticker in Crypto_analysis.osc_coins.keys()]
             st.success("Done MMA")
 def main():
+    start=datetime.now()
     Crypto_analysis.do_draw_sidebar()
     Crypto_analysis.get_marketCap()
     Crypto_analysis.do_analysis()    
     Crypto_analysis.do_draw_body()
+    st.write("Execution time",datetime.now()-start)
         
 if __name__ == '__main__':
     start=datetime.now()
