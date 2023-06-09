@@ -1,8 +1,7 @@
 import requests
 import json
-import datetime
+import sys
 from json import (load as jsonload, dump as jsondump)
-import os
 
 class coinmarketcap():
     def __init__(self):
