@@ -8,15 +8,18 @@ import yfinance as yf
 import time
 import asyncio
 import dashboard
-import analysis
+import subprocess
 from json import (load as jsonload, dump as jsondump)
-from os import path
+import os
 from currency_converter import CurrencyConverter
 
-SETTINGS_FILE = path.join(path.dirname(__file__), r'settings_file.cfg')
+SETTINGS_FILE = os.path.join(os.path.dirname(__file__), r'settings_file.cfg')
 DEFAULT_SETTINGS = {'theme': sg.theme()}
 SETTINGS_KEYS_TO_ELEMENT_KEYS = {'theme': '-THEME-'}
-PATH_DATA = path.join(path.dirname(__file__), r'data.json')
+PATH_DATA = os.path.join(os.path.dirname(__file__), r'data.json')
+PATH_ANALYSIS = os.path.join(os.path.dirname(__file__), r'analysis.py')
+PATH_DASHBOARD = os.path.join(os.path.dirname(__file__), r'dashboard.py')
+#change above if you change script file
 crypto.main()
 
 def tim():
@@ -167,7 +170,7 @@ def create_main_window(settings):
     return sg.Window('Crypto Currencies', layout=layout,
                      right_click_menu=right_click_menu)
 
-async def queue(window, coin, data_crypto, keys):
+def queue(window, coin, data_crypto, keys):
     cc = CurrencyConverter()
     for i in coin:
         try:
@@ -177,9 +180,8 @@ async def queue(window, coin, data_crypto, keys):
         window['prices'].update("Price "+i.upper(), visible=True)
         for key, value in keys.items():
             window.Element(key).Update(''+str(int(data_crypto[value]['quote']['IDR']['price'])/convert), visible=True)
-        await asyncio.sleep(10)
 
-async def main():
+def main():
     window, settings = None, load_settings(SETTINGS_FILE, DEFAULT_SETTINGS )
     while True:
         if window is None:
@@ -240,18 +242,19 @@ async def main():
 
         elif event == 'Dashboard':
             dashboard.main()
+            os.system(r'streamlit run '+PATH_DASHBOARD)
             webbrowser.open_new_tab("http://localhost:8501/")
             
         elif event == 'Analysis':
-            analysis.main()
+            os.system(r'python.exe '+PATH_ANALYSIS)
+            os.system(r'streamlit run '+PATH_ANALYSIS)
             webbrowser.open_new_tab("http://localhost:8501/")
         
         elif event == 'submit':
             coin = values['-IN-']
             if("," in coin):
                 coin = coin.split(",")
-                task1 = asyncio.create_task(queue(window, coin, data_crypto, keys))
-                await task1
+                queue(window, coin, data_crypto, keys)
             else:
                 try:
                     convert = cc.convert(1, coin, "IDR")
@@ -262,4 +265,4 @@ async def main():
                     window.Element(key).Update(''+str(int(data_crypto[value]['quote']['IDR']['price'])/convert), visible=True)
     window.Close()   
 
-asyncio.run(main())
+main()
