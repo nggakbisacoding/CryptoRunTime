@@ -2,9 +2,6 @@ import PySimpleGUI as sg
 import requests
 import json
 import datetime
-from json import (load as jsonload, dump as jsondump)
-from os import path
-from currency_converter import CurrencyConverter
 import crypto
 import webbrowser
 import yfinance as yf
@@ -12,6 +9,9 @@ import time
 import asyncio
 import dashboard
 import analysis
+from json import (load as jsonload, dump as jsondump)
+from os import path
+from currency_converter import CurrencyConverter
 
 SETTINGS_FILE = path.join(path.dirname(__file__), r'settings_file.cfg')
 DEFAULT_SETTINGS = {'theme': sg.theme()}
@@ -256,9 +256,6 @@ async def main():
                 try:
                     convert = cc.convert(1, coin, "IDR")
                 except Exception as e:
-                    window.disappear()
-                    sg.popup("Mata Uang Tidak Valid")
-                    window.reappear()
                     convert = cc.convert(1, "EUR", "IDR")
                 window['prices'].update("Price "+coin.upper(), visible=True)
                 for key, value in keys.items():

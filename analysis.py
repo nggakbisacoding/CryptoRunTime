@@ -39,7 +39,7 @@ class Crypto_analysis:
             response = session.get(url, params=parameters)
             data = json.loads(response.text)
             
-            with st.spinner("Collecting latest Cyrpto and save the crypto with positive changes"):
+            with st.spinner("Mengambil data crypto terbaru dan menyimpan persentase crypto"):
                 
                 for d in data.keys():
                     if d=="data":
@@ -56,7 +56,7 @@ class Crypto_analysis:
             
         except: 
             pass 
-        st.success("Done collecting Cryptos")
+        st.success("Done collecting crypto")
     
     def get_analysis_mma(ticker):
         try:
@@ -129,12 +129,10 @@ class Crypto_analysis:
                 futures = [executor.submit(Crypto_analysis.get_analysis_mma(ticker),) for ticker in Crypto_analysis.osc_coins.keys()]
             st.success("Done MMA")
 def main():
-    start=datetime.now()
     Crypto_analysis.do_draw_sidebar()
     Crypto_analysis.get_marketCap()
     Crypto_analysis.do_analysis()    
     Crypto_analysis.do_draw_body()
-    st.write("Execution time",datetime.now()-start)
         
 if __name__ == '__main__':
     start=datetime.now()

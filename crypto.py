@@ -25,7 +25,7 @@ class coinmarketcap():
                 "USDP"
             ],
             "symbol" : "Rp.",
-            "api_key" : "38b7c907-2298-40c1-8323-5ca6d247d3bf",
+            "api_key" : "COINMARKETCAP_API_KEY",
             "limit": "0",
         }
         
