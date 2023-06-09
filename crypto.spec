@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['cryptoruntime.py'],
-             pathex=['C:\\Users\\xhien\\OneDrive\\Dokumen\\code\\CryptoRunTime'],
+             pathex=['..\\CryptoRunTime'],
              binaries=[],
              datas=[],
              hiddenimports=[],
