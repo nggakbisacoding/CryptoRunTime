@@ -1,14 +1,9 @@
 import PySimpleGUI as sg
-import requests
 import json
 import datetime
 import crypto
 import webbrowser
-import yfinance as yf
-import time
-import asyncio
 import dashboard
-import subprocess
 from json import (load as jsonload, dump as jsondump)
 import os
 from currency_converter import CurrencyConverter
