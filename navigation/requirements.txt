@@ -1,0 +1,10 @@
+numpy
+pandas
+streamlit
+requests
+matplotlib
+yfinance
+CurrencyConverter
+PySimpleGUI
+plotly
+tradingview_ta
